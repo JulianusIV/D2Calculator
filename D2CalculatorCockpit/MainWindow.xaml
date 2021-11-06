@@ -6,32 +6,31 @@
         xmlns:local="clr-namespace:D2CalculatorCockpit"
 		xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="30"/>
-			<RowDefinition Height="30"/>
-			<RowDefinition/>
-		</Grid.RowDefinitions>
-		<Grid Grid.Row="0">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition/>
-				<ColumnDefinition/>
-				<ColumnDefinition/>
-			</Grid.ColumnDefinitions>
-			<Label Grid.Column="0" Content="Baseline bodyshot damage"/>
-			<Label Grid.Column="1" Content="Baseline critical hit damage"/>
-		</Grid>
-		<Grid Grid.Row="1">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition/>
-				<ColumnDefinition/>
-				<ColumnDefinition/>
-			</Grid.ColumnDefinitions>
-			<xctk:IntegerUpDown Grid.Column="0" Text="47" Name="bodyDmgSelector"/>
-			<xctk:IntegerUpDown Grid.Column="1" Text="70" Name="critDmgSelector"/>
-			<Button Grid.Column="2" Content="Calc" Click="Button_Click"/>
-		</Grid>
-		<WpfPlot Grid.Row="2" Name="Plot"/>
+        Title="MainWindow" Height="300" Width="280" Background="#131519" Foreground="White">
+	<Grid>
+		<TabControl Background="#131519" BorderBrush="#757575" Foreground="White">
+			<TabItem Header="Shots per Resilience" Background="#131519" BorderBrush="#757575" Foreground="White">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="30"/>
+						<RowDefinition Height="30"/>
+						<RowDefinition Height="30"/>
+						<RowDefinition Height="30"/>
+						<RowDefinition Height="15"/>
+						<RowDefinition Height="30"/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+					<Label Grid.Row="0" Content="Baseline bodyshot damage" Foreground="#b9b9ba"/>
+					<!--TODO: Replace numeric damage selection with Archetype selection-->
+					<xctk:IntegerUpDown Grid.Row="1" Text="47" Name="bodyDmgSelector" Background="#262626" Foreground="#b9b9ba" BorderBrush="#757575"/>
+					<Label Grid.Row="2" Content="Baseline critical hit damage" Foreground="#b9b9ba"/>
+					<xctk:IntegerUpDown Grid.Row="3" Text="70" Name="critDmgSelector" Background="#262626" Foreground="#b9b9ba" BorderBrush="#757575"/>
+					<Button Grid.Row="5" Content="Calculate" Click="Button_Click" Margin="1" Foreground="#b9b9ba"/>
+				</Grid>
+			</TabItem>
+			<TabItem Header="Archetype Selection prep" Visibility="Hidden">
+
+			</TabItem>
+		</TabControl>
 	</Grid>
 </Window>
