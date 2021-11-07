@@ -16,12 +16,18 @@ namespace D2CalculatorCockpit
 		public MainWindow()
 		{
 			InitializeComponent();
-			
+
 			MasterDataCache.GenerateSampleData();
 
 			foreach (var weaponType in MasterDataCache.WeaponTypes)
 			{
-				_ = this.WeaponTypeComboBox.Items.Add(new ComboBoxItem
+				_ = this.OptWeaponTypeComboBox.Items.Add(new ComboBoxItem
+				{
+					Foreground = new SolidColorBrush(Color.FromRgb(185, 185, 186)),
+					Content = weaponType.Name,
+					Tag = weaponType.Id
+				});
+				_ = this.AdjWeaponTypeComboBox.Items.Add(new ComboBoxItem
 				{
 					Foreground = new SolidColorBrush(Color.FromRgb(185, 185, 186)),
 					Content = weaponType.Name,
@@ -30,38 +36,80 @@ namespace D2CalculatorCockpit
 			}
 		}
 
-		private void ShotsPerResilClick(object sender, RoutedEventArgs e)
-		{
-			var window = new ShotsPerResilWindow(double.Parse(this.bodyDmgSelector.Text), double.Parse(this.critDmgSelector.Text));
-			window.Show();
-		}
+		private void OptimalShotsPerResilClick(object sender, RoutedEventArgs e) 
+			=> new OptimalShotsPerResilWindow(
+				double.Parse(this.bodyDmgSelector.Text),
+				double.Parse(this.critDmgSelector.Text),
+				"", "").Show();
 
-		private void ShotsPerResilClick_ArchetypeWIP(object sender, RoutedEventArgs e)
+		private void OptimalShotsPerResilClick_ArchetypeWIP(object sender, RoutedEventArgs e)
 		{
 			var archetype = MasterDataCache
-				.WeaponTypes.First(x => x.Id == (int)((ComboBoxItem)this.WeaponTypeComboBox.SelectedItem).Tag)
-				.Archetypes.First(x => x.Id == (int)((ComboBoxItem)this.ArchetypeComboBox.SelectedItem).Tag);
+				.WeaponTypes.First(x => x.Id == (int)((ComboBoxItem)this.OptWeaponTypeComboBox.SelectedItem).Tag)
+				.Archetypes.First(x => x.Id == (int)((ComboBoxItem)this.OptArchetypeComboBox.SelectedItem).Tag);
 			var bodyDamage = archetype.BaselineBodyDamage;
 			var critDamage = archetype.BaselineCritDamage;
 
-			var window = new ShotsPerResilWindow(bodyDamage, critDamage);
-			window.Show();
+			new OptimalShotsPerResilWindow(
+				bodyDamage,
+				critDamage,
+				archetype.Name,
+				MasterDataCache.WeaponTypes.First(x => x.Id == (int)((ComboBoxItem)this.OptWeaponTypeComboBox.SelectedItem).Tag).Name).Show();
 		}
 
 		private void WeaponTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			this.ArchetypeComboBox.IsEnabled = true;
-			this.ArchetypeComboBox.Items.Clear();
-			foreach (var archetype in MasterDataCache
-				.WeaponTypes.First(x => x.Id == (int)((ComboBoxItem)this.WeaponTypeComboBox.SelectedItem).Tag).Archetypes)
+			if (((ComboBox)sender).Name == "OptWeaponTypeComboBox")
 			{
-				_ = this.ArchetypeComboBox.Items.Add(new ComboBoxItem
+				this.OptArchetypeComboBox.IsEnabled = true;
+				this.OptArchetypeComboBox.Items.Clear();
+			}
+			else if (((ComboBox)sender).Name == "AdjWeaponTypeComboBox")
+			{
+				this.AdjArchetypeComboBox.IsEnabled = true;
+				this.AdjArchetypeComboBox.Items.Clear();
+			}
+			foreach (var archetype in MasterDataCache
+				.WeaponTypes.First(x => x.Id == (int)((ComboBoxItem)e.AddedItems[0]).Tag).Archetypes)
+			{
+				var item = new ComboBoxItem
 				{
 					Foreground = new SolidColorBrush(Color.FromRgb(185, 185, 186)),
 					Content = archetype.Name,
 					Tag = archetype.Id
-				});
+				};
+				if (((ComboBox)sender).Name == "OptWeaponTypeComboBox")
+				{
+					_ = this.OptArchetypeComboBox.Items.Add(item);
+				}
+				else if (((ComboBox)sender).Name == "AdjWeaponTypeComboBox")
+				{
+					_ = this.AdjArchetypeComboBox.Items.Add(item);
+				}
 			}
+		}
+
+		private void AdjustedShotsPerResilClick(object sender, RoutedEventArgs e)
+			=> new AdjustedShotsPerResilWindow(
+				double.Parse(this.adjBodyDmgSelector.Text),
+				double.Parse(this.adjCritDmgSelector.Text),
+				int.Parse(this.damageAccuracySelector.Text),
+				"", "").Show();
+
+		private void AdjustedShotsPerResilClick_ArchetypeWIP(object sender, RoutedEventArgs e)
+		{
+			var archetype = MasterDataCache
+				.WeaponTypes.First(x => x.Id == (int)((ComboBoxItem)this.AdjWeaponTypeComboBox.SelectedItem).Tag)
+				.Archetypes.First(x => x.Id == (int)((ComboBoxItem)this.AdjArchetypeComboBox.SelectedItem).Tag);
+			var bodyDamage = archetype.BaselineBodyDamage;
+			var critDamage = archetype.BaselineCritDamage;
+
+			new AdjustedShotsPerResilWindow(
+				bodyDamage,
+				critDamage,
+				int.Parse(archetypeAccuracySelector.Text),
+				archetype.Name,
+				MasterDataCache.WeaponTypes.First(x => x.Id == (int)((ComboBoxItem)this.AdjWeaponTypeComboBox.SelectedItem).Tag).Name).Show();
 		}
 	}
 }

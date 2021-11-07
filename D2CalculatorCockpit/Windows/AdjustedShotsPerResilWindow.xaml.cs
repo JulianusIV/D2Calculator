@@ -1,17 +1,16 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
-using System.Collections.Generic;
-
 using D2Calculator;
 
 namespace D2CalculatorCockpit.Windows
 {
 	/// <summary>
-	/// Interaction logic for ShotsPerResilWindow.xaml
+	/// Interaction logic for AdjustedShotsPerResilWindow.xaml
 	/// </summary>
-	public partial class ShotsPerResilWindow : Window
+	public partial class AdjustedShotsPerResilWindow : Window
 	{
-		public ShotsPerResilWindow(double bodyDamage, double critDamage)
+		public AdjustedShotsPerResilWindow(double bodyDamage, double critDamage, int accuracy, string archetype, string weapon)
 		{
 			InitializeComponent();
 
@@ -28,8 +27,8 @@ namespace D2CalculatorCockpit.Windows
 			//calculate shotcounts for each level of resilience
 			for (var i = 0; i < 11; i++)
 			{
-				bodyShots[i] = calculator.GetBodyShots(ConstantProvider.Resiliences[i]);
-				critShots[i] = calculator.GetCritShots(ConstantProvider.Resiliences[i]);
+				bodyShots[i] = calculator.GetAccuracyAdjBodyShots(ConstantProvider.Resiliences[i], accuracy);
+				critShots[i] = calculator.GetAccuracyAdjCritShots(ConstantProvider.Resiliences[i], accuracy);
 			}
 
 			//push up bodyshots to be visible above critshots
@@ -69,6 +68,7 @@ namespace D2CalculatorCockpit.Windows
 			this.Plot.Plot.SetAxisLimits(yMin: 0);
 
 			_ = this.Plot.Plot.Legend();
+			this.Plot.Plot.Title($"Accuracy adjusted shots to kill for {archetype} {weapon} with {accuracy}% accuracy");
 
 			//Set plot style
 			this.Plot.Plot.Style(ScottPlot.Style.Gray2);

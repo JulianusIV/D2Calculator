@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:D2CalculatorCockpit"
 		xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="MainWindow" Height="280" Width="300" Background="#131519" Foreground="White">
+        Title="MainWindow" Height="450" Width="800" Background="#131519" Foreground="White">
 	<Grid>
 		<TabControl Background="#131519" BorderBrush="#757575" Foreground="White">
 			<TabItem Header="Shots per Resilience" Background="#131519" BorderBrush="#757575" Foreground="White">
@@ -21,14 +21,13 @@
 						<RowDefinition/>
 					</Grid.RowDefinitions>
 					<Label Grid.Row="0" Content="Baseline bodyshot damage" Foreground="#b9b9ba"/>
-					<!--TODO: Replace numeric damage selection with Archetype selection-->
 					<xctk:IntegerUpDown Margin="3" Grid.Row="1" Text="47" Name="bodyDmgSelector" Background="#262626" Foreground="#b9b9ba" BorderBrush="#757575"/>
 					<Label Grid.Row="2" Content="Baseline critical hit damage" Foreground="#b9b9ba"/>
 					<xctk:IntegerUpDown Margin="3" Grid.Row="3" Text="70" Name="critDmgSelector" Background="#262626" Foreground="#b9b9ba" BorderBrush="#757575"/>
-					<Button Grid.Row="5" Content="Calculate" Click="ShotsPerResilClick" Margin="1" Foreground="#b9b9ba"/>
+					<Button Grid.Row="5" Content="Calculate" Click="OptimalShotsPerResilClick" Margin="1" Foreground="#b9b9ba"/>
 				</Grid>
 			</TabItem>
-			<TabItem Header="Archetype Selection prep" Selector.IsSelected="True">
+			<TabItem Header="Archetype Selection">
 				<Grid>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="30"/>
@@ -40,10 +39,56 @@
 						<RowDefinition/>
 					</Grid.RowDefinitions>
 					<Label Grid.Row="0" Content="Select weapon type:" Foreground="#b9b9ba"/>
-					<ComboBox x:Name="WeaponTypeComboBox" Grid.Row="1" Margin="3" Foreground="#b9b9ba" SelectionChanged="WeaponTypeComboBox_SelectionChanged"/>
+					<ComboBox x:Name="OptWeaponTypeComboBox" Grid.Row="1" Margin="3" Foreground="#b9b9ba" SelectionChanged="WeaponTypeComboBox_SelectionChanged"/>
 					<Label Grid.Row="2" Content="Select archetype:" Foreground="#b9b9ba"/>
-					<ComboBox x:Name="ArchetypeComboBox" Grid.Row="3" Margin="3" Foreground="#b9b9ba" IsEnabled="False"/>
-					<Button Grid.Row="5" Content="Calculate" Click="ShotsPerResilClick_ArchetypeWIP" Margin="1" Foreground="#b9b9ba"/>
+					<ComboBox x:Name="OptArchetypeComboBox" Grid.Row="3" Margin="3" Foreground="#b9b9ba" IsEnabled="False"/>
+					<Button Grid.Row="5" Content="Calculate" Click="OptimalShotsPerResilClick_ArchetypeWIP" Margin="1" Foreground="#b9b9ba"/>
+				</Grid>
+			</TabItem>
+			<TabItem Header="Accuracy adjusted Shots per Resilience" Background="#131519" BorderBrush="#757575" Foreground="White">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="30"/>
+						<RowDefinition Height="30"/>
+						<RowDefinition Height="30"/>
+						<RowDefinition Height="30"/>
+						<RowDefinition Height="30"/>
+						<RowDefinition Height="30"/>
+						<RowDefinition Height="15"/>
+						<RowDefinition Height="30"/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+					<Label Grid.Row="0" Content="Baseline bodyshot damage" Foreground="#b9b9ba"/>
+					<xctk:IntegerUpDown Margin="3" Grid.Row="1" Text="47" Name="adjBodyDmgSelector" Background="#262626" Foreground="#b9b9ba" BorderBrush="#757575"/>
+					<Label Grid.Row="2" Content="Baseline critical hit damage" Foreground="#b9b9ba"/>
+					<xctk:IntegerUpDown Margin="3" Grid.Row="3" Text="70" Name="adjCritDmgSelector" Background="#262626" Foreground="#b9b9ba" BorderBrush="#757575"/>
+					<Label Grid.Row="4" Content="Accuracy" Foreground="#b9b9ba"/>
+					<xctk:IntegerUpDown Margin="3,3,25,3" Grid.Row="5" Text="70" Name="damageAccuracySelector" Background="#262626" Foreground="#b9b9ba" BorderBrush="#757575"/>
+					<Label Grid.Row="5" HorizontalAlignment="Right" Content="%" Foreground="#b9b9ba"/>
+					<Button Grid.Row="7" Content="Calculate" Click="AdjustedShotsPerResilClick" Margin="1" Foreground="#b9b9ba"/>
+				</Grid>
+			</TabItem>
+			<TabItem Header="Accuracy adjusted Archetype Selection" Selector.IsSelected="True">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="30"/>
+						<RowDefinition Height="30"/>
+						<RowDefinition Height="30"/>
+						<RowDefinition Height="30"/>
+						<RowDefinition Height="30"/>
+						<RowDefinition Height="30"/>
+						<RowDefinition Height="15"/>
+						<RowDefinition Height="30"/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+					<Label Grid.Row="0" Content="Select weapon type:" Foreground="#b9b9ba"/>
+					<ComboBox x:Name="AdjWeaponTypeComboBox" Grid.Row="1" Margin="3" Foreground="#b9b9ba" SelectionChanged="WeaponTypeComboBox_SelectionChanged"/>
+					<Label Grid.Row="2" Content="Select archetype:" Foreground="#b9b9ba"/>
+					<ComboBox x:Name="AdjArchetypeComboBox" Grid.Row="3" Margin="3" Foreground="#b9b9ba" IsEnabled="False"/>
+					<Label Grid.Row="4" Content="Accuracy" Foreground="#b9b9ba"/>
+					<xctk:IntegerUpDown Margin="3,3,25,3" Grid.Row="5" Text="70" Name="archetypeAccuracySelector" Background="#262626" Foreground="#b9b9ba" BorderBrush="#757575"/>
+					<Label Grid.Row="5" HorizontalAlignment="Right" Content="%" Foreground="#b9b9ba"/>
+					<Button Grid.Row="7" Content="Calculate" Click="AdjustedShotsPerResilClick_ArchetypeWIP" Margin="1" Foreground="#b9b9ba"/>
 				</Grid>
 			</TabItem>
 		</TabControl>
