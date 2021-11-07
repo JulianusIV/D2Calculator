@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\D2CalculatorDataProvider\D2CalculatorDataProvider.csproj" />
     <ProjectReference Include="..\D2Calculator\D2Calculator.csproj" />
   </ItemGroup>
 

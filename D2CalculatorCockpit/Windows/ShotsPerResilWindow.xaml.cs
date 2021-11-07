@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Collections.Generic;
 
-using D2Calculator.D2Calculator;
+using D2Calculator;
 
 namespace D2CalculatorCockpit.Windows
 {

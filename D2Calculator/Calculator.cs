@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace D2Calculator.D2Calculator
+namespace D2Calculator
 {
 	public class Calculator
 	{
