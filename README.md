@@ -2,6 +2,8 @@
 
 A C# WPF App to calculate shots to kill in different circumstances for Destiny2
 
+## Current status
+
 ### Currently working:
 
 - Calculate shots to kill for every resilience level given a baseline bodyshot damage value and a baseline crit value (this will be deprecated and removed with the full implementation of the archetype selector)
