@@ -6,13 +6,12 @@ A C# WPF App to calculate shots to kill in different circumstances for Destiny2
 
 ### Currently working:
 
-- Calculate shots to kill for every resilience level given a baseline bodyshot damage value and a baseline crit value (this will be deprecated and removed with the full implementation of the archetype selector)
-- Calculate shots to kill for every resilience level for a select few archetypes, this wil replace beforementioned STK with manual damage input
+- Calculate shots to kill for every resilience level given a baseline bodyshot damage value and a baseline crit value (this will be deprecated and removed with the full implementation of the archetype selector) (DEPRECATED BY SECOND POINT)
+- Calculate shots to kill for every resilience level for any archetype
 - Accuracy calculation (taking into account accuracy, instead of optimal STK)
 
 ### Planned/WIP
 
-- Expand Archetype selection to include all archetypes
 - Calculate shots to kill for each resilience level based on archetype and damage modifier (empowering rift etc...)
 - Calculate shots to kill based on Range
 
@@ -41,3 +40,17 @@ dotnet build -c Release
 
 After the build is done, you will find the binaries in `D2Calculator-master\D2CalculatorCockpit\bin\Release\net5.0-windows\D2CalculatorCockpit.exe`.
 From here you are all set and can just run the executable.
+
+## Manual damage calculation
+
+As mentioned above this has been deprecated, it can however still be accessed by running the executable from the console with
+```cmd
+D2CalculatorCockpit.exe IKnowWhatIAmDoing
+exit
+```
+or from the powershell with
+```ps
+./D2CalculatorCockpit.exe IKnowWhatIAmDoing
+exit
+```
+or creating a batch or ps1 with the respective content and running the script.
