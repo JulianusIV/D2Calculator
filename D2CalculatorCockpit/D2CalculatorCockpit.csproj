@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\applogo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.1.0">
       <NoWarn>NU1701</NoWarn>
     </PackageReference>
@@ -17,6 +21,12 @@
   <ItemGroup>
     <ProjectReference Include="..\D2CalculatorDataProvider\D2CalculatorDataProvider.csproj" />
     <ProjectReference Include="..\D2Calculator\D2Calculator.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\applogo.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

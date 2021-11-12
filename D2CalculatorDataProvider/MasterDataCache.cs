@@ -9,46 +9,33 @@ namespace D2CalculatorDataProvider
 	{
 		public static List<WeaponType> WeaponTypes { get; set; } = new();
 
-		public static void GenerateSampleData()
+		public static void UpdateCache()
 		{
-			WeaponTypes.Add(new()
+			var lines = Resources.WeaponDamages.Split('\n');
+			int addedWeapons = 0,
+				addedArchetypes = 0;
+			foreach (var line in lines)
 			{
-				Id = 0,
-				Name = "Handcannons"
-			});
-			WeaponTypes.First(x => x.Id == 0).Archetypes.Add(new()
-			{
-				Id = 0,
-				Name = "Adaptive",
-				BaselineBodyDamage = 47,
-				BaselineCritDamage = 70
-			});
-			WeaponTypes.First(x => x.Id == 0).Archetypes.Add(new()
-			{
-				Id = 1,
-				Name = "Aggressive",
-				BaselineBodyDamage = 50,
-				BaselineCritDamage = 80
-			});
-			WeaponTypes.Add(new()
-			{
-				Id = 1,
-				Name = "SMGs"
-			});
-			WeaponTypes.First(x => x.Id == 1).Archetypes.Add(new()
-			{
-				Id = 0,
-				Name = "Precision",
-				BaselineBodyDamage = 16,
-				BaselineCritDamage = 23
-			});
-			WeaponTypes.First(x => x.Id == 1).Archetypes.Add(new()
-			{
-				Id = 1,
-				Name = "Adaptive",
-				BaselineBodyDamage = 13,
-				BaselineCritDamage = 17
-			});
+				var columns = line.Trim().Split(',');
+				if (!WeaponTypes.Any(x => x.Name == columns[0]))
+				{
+					WeaponTypes.Add(new()
+					{
+						Id = addedWeapons,
+						Name = columns[0]
+					});
+					addedWeapons++;
+				}
+				WeaponTypes.Find(x => x.Id == addedWeapons - 1).Archetypes.Add(new()
+				{
+					Id = addedArchetypes,
+					Name = columns[1],
+					BaselineBodyDamage = double.Parse(columns[2]),
+					CanCrit = bool.Parse(columns[3]),
+					BaselineCritDamage = bool.Parse(columns[3]) ? double.Parse(columns[4]) : 0
+				});
+				addedArchetypes++;
+			}
 		}
 	}
 }

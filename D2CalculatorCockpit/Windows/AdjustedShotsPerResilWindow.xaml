@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:D2CalculatorCockpit.Windows"
         mc:Ignorable="d"
-        Title="AdjustedShotsPerResilWindow" Height="450" Width="800">
+        Title="AdjustedShotsPerResilWindow" Height="450" Width="800" Icon="/Resources/applogo.png">
 	<Grid>
 		<WpfPlot Grid.Row="2" Name="Plot"/>
 	</Grid>

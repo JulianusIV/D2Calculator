@@ -4,9 +4,12 @@ namespace D2Calculator
 {
 	public class Calculator
 	{
+		#region Attributes
 		private readonly double _bodyDamage;
 		private readonly double _critDamage;
+		#endregion
 
+		#region ctor
 		public Calculator(double baselineBodyDamage, double baselineCritDamage, params double[] multipliers)
 		{
 			if (multipliers.Length > 2)
@@ -26,7 +29,9 @@ namespace D2Calculator
 				}
 			}
 		}
+		#endregion
 
+		#region public methods
 		public int GetOptimalTotalShots(int health)
 			=> (int)Math.Round(health / this._critDamage, 0, MidpointRounding.ToPositiveInfinity);
 
@@ -75,18 +80,20 @@ namespace D2Calculator
 				//else evaluate with two more shots
 				var addedBulletAmount = AddOneShot(health, accuracy) ? 1 : 2;
 				//calculate damage dealt with one more crit than total if optimal kill
-				var totalCritDamage = ((GetOptimalTotalShots(health) + addedBulletAmount) * this._critDamage);
+				var totalCritDamage = (GetOptimalTotalShots(health) + addedBulletAmount) * this._critDamage;
 				//calculate difference between health and total damage from evaluation above and divide by difference of crit and body damage
 				//this will give the allowed amount of bodyshots with a decimal point that will be trimmed with the rounddown
 				var shotVariability = (totalCritDamage - health) / (this._critDamage - this._bodyDamage);
 				return (int)Math.Round(shotVariability, 0, MidpointRounding.ToNegativeInfinity);
 			}
-			throw new Exception("If you see this something went wrong. Terribly. I have no idea either.");
+			throw new InvalidOperationException("If you see this something went wrong. Terribly. I have no idea either.");
 		}
 
 		public int GetAccuracyAdjCritShots(int health, int accuracy)
 			=> (int)Math.Round((health - (GetAccuracyAdjBodyShots(health, accuracy) * this._bodyDamage)) / this._critDamage, 0, MidpointRounding.ToPositiveInfinity);
+		#endregion
 
+		#region private methods
 		private bool AddOneShot(int health, int accuracy)
 		{
 			//calculate damage dealt with one more crit than total shot if optimal kill
@@ -107,5 +114,6 @@ namespace D2Calculator
 			//divided by the needed bodyshots at the given accuracy return true
 			return accuracy >= (critsNeeded / bodyShotAmount * 100);
 		}
+		#endregion
 	}
 }

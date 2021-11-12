@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:D2CalculatorCockpit"
 		xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Background="#131519" Foreground="White">
+        Title="MainWindow" Height="450" Width="800" Background="#131519" Foreground="White" Icon="/Resources/applogo.png">
 	<Grid>
 		<TabControl Background="#131519" BorderBrush="#757575" Foreground="White">
-			<TabItem Header="Shots per Resilience" Background="#131519" BorderBrush="#757575" Foreground="White">
+            <TabItem Name="ShotsPerResilTab" Header="Shots per Resilience" Background="#131519" BorderBrush="#757575" Foreground="White">
 				<Grid>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="30"/>
@@ -45,7 +45,7 @@
 					<Button Grid.Row="5" Content="Calculate" Click="OptimalShotsPerResilClick_ArchetypeWIP" Margin="1" Foreground="#b9b9ba"/>
 				</Grid>
 			</TabItem>
-			<TabItem Header="Accuracy adjusted Shots per Resilience" Background="#131519" BorderBrush="#757575" Foreground="White">
+            <TabItem Name="AdjShotsPerResilTab" Header="Accuracy adjusted Shots per Resilience" Background="#131519" BorderBrush="#757575" Foreground="White">
 				<Grid>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="30"/>

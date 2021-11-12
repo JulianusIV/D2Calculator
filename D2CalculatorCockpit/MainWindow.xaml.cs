@@ -17,7 +17,10 @@ namespace D2CalculatorCockpit
 		{
 			InitializeComponent();
 
-			MasterDataCache.GenerateSampleData();
+			this.ShotsPerResilTab.Visibility = App.KnowsWhatTheyAreDoing ? Visibility.Visible : Visibility.Collapsed;
+			this.AdjShotsPerResilTab.Visibility = App.KnowsWhatTheyAreDoing ? Visibility.Visible : Visibility.Collapsed;
+
+			MasterDataCache.UpdateCache();
 
 			foreach (var weaponType in MasterDataCache.WeaponTypes)
 			{
@@ -107,7 +110,7 @@ namespace D2CalculatorCockpit
 			new AdjustedShotsPerResilWindow(
 				bodyDamage,
 				critDamage,
-				int.Parse(archetypeAccuracySelector.Text),
+				int.Parse(this.archetypeAccuracySelector.Text),
 				archetype.Name,
 				MasterDataCache.WeaponTypes.First(x => x.Id == (int)((ComboBoxItem)this.AdjWeaponTypeComboBox.SelectedItem).Tag).Name).Show();
 		}
